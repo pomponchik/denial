@@ -27,14 +27,17 @@ Let's start with the installation:
 pip install nones
 ```
 
-It is used the same way as `None`, except that this value is not a built-in constant and needs to be imported:
+This is how this additional version of `None` and its class are imported (can be used for type hints or checks via isinstance):
 
 ```python
 from nones import InnerNone, InnerNoneType
-
-def some_function(default_value: InnerNoneType = InnerNone) -> :
-    if 
 ```
+
+`InnerNone` is used the same way as `None`, with a couple of additional caveats:
+
+1. `InnerNone` is not an instance of [`NoneType`](https://docs.python.org/3/library/types.html#types.NoneType), it has its own parent class.
+
+2. `InnerNone` cannot be used as your own type hint. What am I talking about? Let's look at the documentation:
 
 > When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
 
