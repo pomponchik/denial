@@ -39,6 +39,6 @@ from nones import InnerNone, InnerNoneType
 
 2. `InnerNone` cannot be used as your own type hint. What am I talking about? Let's look at the documentation:
 
-> When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
+  > When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
 
-> *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
+  > *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
