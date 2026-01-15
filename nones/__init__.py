@@ -1,1 +1,1 @@
-from nones.inner import InnerNoneType, InnerNone
+from nones.inner import InnerNone as InnerNone, InnerNoneType as InnerNoneType
