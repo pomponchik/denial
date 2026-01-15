@@ -37,4 +37,5 @@ def some_function(default_value: InnerNoneType = InnerNone) -> :
 ```
 
 > When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
+
 > *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
