@@ -42,3 +42,5 @@ from nones import InnerNone, InnerNoneType
   > When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
 
   > *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
+
+  In most type checkers, this is implemented using a special "crutch", an exception in the code that cannot be repeated for any other value. Therefore, use `InnerNoneType` as a type hint.
