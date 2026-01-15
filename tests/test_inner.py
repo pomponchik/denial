@@ -1,0 +1,9 @@
+from nones import InnerNone, InnerNoneType
+
+
+def test_inner_none_is_inner_none():
+    assert InnerNone is InnerNone
+
+
+def test_inner_none_is_instance_of_inner_none_type():
+    assert isinstance(InnerNone, InnerNoneType)
