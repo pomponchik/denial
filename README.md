@@ -17,4 +17,24 @@ There is a small but annoying misunderstanding in the design of Python as a lang
 
 For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value. However, the use of `MISSING` is tied to the use of this library, and sometimes this constant may be needed for completely different purposes.
 
-This library defines just such an object: None for situations where you need to distinguish None as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations.
+This library defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations.
+
+Well, how to use it?
+
+Let's start with the installation:
+
+```bash
+pip install nones
+```
+
+It is used the same way as `None`, except that this value is not a built-in constant and needs to be imported:
+
+```python
+from nones import InnerNone, InnerNoneType
+
+def some_function(default_value: InnerNoneType = InnerNone) -> :
+    if 
+```
+
+> When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
+> *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
