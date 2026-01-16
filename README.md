@@ -1,4 +1,4 @@
-# nones
+# denial
 
 [![Downloads](https://static.pepy.tech/badge/denial/month)](https://pepy.tech/project/denial)
 [![Downloads](https://static.pepy.tech/badge/denial)](https://pepy.tech/project/denial)
