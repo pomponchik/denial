@@ -7,3 +7,11 @@ def test_inner_none_is_inner_none():
 
 def test_inner_none_is_instance_of_inner_none_type():
     assert isinstance(InnerNone, InnerNoneType)
+
+
+def test_str():
+    assert str(InnerNone) == 'InnerNone'
+
+
+def test_repr():
+    assert repr(InnerNone) == 'InnerNone'
