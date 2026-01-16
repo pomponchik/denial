@@ -1,16 +1,16 @@
 # nones
 
-[![Downloads](https://static.pepy.tech/badge/nones/month)](https://pepy.tech/project/nones)
-[![Downloads](https://static.pepy.tech/badge/nones)](https://pepy.tech/project/nones)
-[![Coverage Status](https://coveralls.io/repos/github/pomponchik/nones/badge.svg?branch=main)](https://coveralls.io/github/pomponchik/nones?branch=main)
-[![Lines of code](https://sloc.xyz/github/pomponchik/nones/?category=code)](https://github.com/boyter/scc/)
-[![Hits-of-Code](https://hitsofcode.com/github/pomponchik/nones?branch=main&label=Hits-of-Code&exclude=docs/)](https://hitsofcode.com/github/pomponchik/nones/view?branch=main)
-[![Test-Package](https://github.com/pomponchik/nones/actions/workflows/tests_and_coverage.yml/badge.svg)](https://github.com/pomponchik/nones/actions/workflows/tests_and_coverage.yml)
-[![Python versions](https://img.shields.io/pypi/pyversions/nones.svg)](https://pypi.python.org/pypi/nones)
-[![PyPI version](https://badge.fury.io/py/nones.svg)](https://badge.fury.io/py/nones)
+[![Downloads](https://static.pepy.tech/badge/denial/month)](https://pepy.tech/project/denial)
+[![Downloads](https://static.pepy.tech/badge/denial)](https://pepy.tech/project/denial)
+[![Coverage Status](https://coveralls.io/repos/github/pomponchik/denial/badge.svg?branch=main)](https://coveralls.io/github/pomponchik/denial?branch=main)
+[![Lines of code](https://sloc.xyz/github/pomponchik/denial/?category=code)](https://github.com/boyter/scc/)
+[![Hits-of-Code](https://hitsofcode.com/github/pomponchik/denial?branch=main&label=Hits-of-Code&exclude=docs/)](https://hitsofcode.com/github/pomponchik/denial/view?branch=main)
+[![Test-Package](https://github.com/pomponchik/denial/actions/workflows/tests_and_coverage.yml/badge.svg)](https://github.com/pomponchik/denial/actions/workflows/tests_and_coverage.yml)
+[![Python versions](https://img.shields.io/pypi/pyversions/denial.svg)](https://pypi.python.org/pypi/denial)
+[![PyPI version](https://badge.fury.io/py/denial.svg)](https://badge.fury.io/py/denial)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/pomponchik/nones)
+[![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/pomponchik/denial)
 
 
 There is a small but annoying misunderstanding in the design of Python as a language. The language defines the constant `None`, which designates a special object that is used as a "stub" when it is not possible to use the "real" value. But sometimes, when implementing libraries, it is not possible to distinguish `None`, passed by the user as the default value, from `None`, which means that the value is *really undefined*. In some rare cases, this distinction is important.
@@ -24,13 +24,13 @@ Well, how to use it?
 Let's start with the installation:
 
 ```bash
-pip install nones
+pip install denial
 ```
 
 This is how this additional version of `None` and its class are imported (can be used for type hints or checks via isinstance):
 
 ```python
-from nones import InnerNone, InnerNoneType
+from denial import InnerNone, InnerNoneType
 ```
 
 `InnerNone` is used the same way as `None`, with a couple of additional caveats:
