@@ -1,4 +1,5 @@
 class InnerNoneType:
-    pass
+    def __repr__(self) -> str:
+        return 'InnerNone'
 
 InnerNone = InnerNoneType()
