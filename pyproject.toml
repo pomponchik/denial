@@ -3,8 +3,8 @@ requires = ["setuptools==68.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nones"
-version = "0.0.2"
+name = "denial"
+version = "0.0.1"
 authors = [{ name = "Evgeniy Blinov", email = "zheni-b@yandex.ru" }]
 description = "Is one None not enough for you? There's more"
 readme = "README.md"
@@ -29,7 +29,7 @@ classifiers = [
     'Intended Audience :: Developers',
     'Topic :: Software Development :: Libraries',
 ]
-keywords = ['None']
+keywords = ['None', 'sentinel']
 
 [tool.setuptools.package-data]
 "nones" = ["py.typed"]

@@ -39,7 +39,7 @@ jobs:
 
       - name: Run tests and show coverage on the command line
         run: |
-          coverage run --source=nones --omit="*tests*" -m pytest --cache-clear --assert=plain && coverage report -m --fail-under=100
+          coverage run --source=denial --omit="*tests*" -m pytest --cache-clear --assert=plain && coverage report -m --fail-under=100
           coverage xml
 
       - name: Upload coverage to Coveralls
@@ -52,4 +52,4 @@ jobs:
           file: coverage.xml
 
       - name: Run tests and show the branch coverage on the command line
-        run: coverage run --branch --source=nones --omit="*tests*" -m pytest --cache-clear --assert=plain && coverage report -m --fail-under=100
+        run: coverage run --branch --source=denial --omit="*tests*" -m pytest --cache-clear --assert=plain && coverage report -m --fail-under=100

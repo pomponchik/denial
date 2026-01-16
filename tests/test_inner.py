@@ -1,4 +1,4 @@
-from nones import InnerNone, InnerNoneType
+from denial import InnerNone, InnerNoneType
 
 
 def test_inner_none_is_inner_none():
