@@ -9,6 +9,10 @@ authors = [{ name = "Evgeniy Blinov", email = "zheni-b@yandex.ru" }]
 description = "Is one None not enough for you? There's more"
 readme = "README.md"
 requires-python = ">=3.8"
+dependencies = [
+    'printo==0.0.8',
+]
+
 classifiers = [
     "Operating System :: OS Independent",
     'Operating System :: MacOS :: MacOS X',
