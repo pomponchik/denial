@@ -5,7 +5,7 @@ from printo import descript_data_object
 
 
 class InnerNoneType:
-    id: Optional[int]
+    id: Optional[Union[int, str]]
     counter = count()
 
     def __init__(self, id: Optional[Union[int, str]] = None) -> None:  # noqa: A002
