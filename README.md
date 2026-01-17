@@ -13,6 +13,8 @@
 [![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/pomponchik/denial)
 
 
+![logo](https://raw.githubusercontent.com/pomponchik/denial/develop/docs/assets/logo_1.svg)
+
 There is a small but annoying misunderstanding in the design of Python as a language. The language defines the constant `None`, which designates a special object that is used as a "stub" when it is not possible to use the "real" value. But sometimes, when implementing libraries, it is not possible to distinguish `None`, passed by the user as the default value, from `None`, which means that the value is *really undefined*. In some rare cases, this distinction is important.
 
 For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value. However, the use of `MISSING` is tied to the use of this library, and sometimes this constant may be needed for completely different purposes.
