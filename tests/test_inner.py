@@ -42,12 +42,12 @@ def test_new_instance_repr():
 def test_eq():
     new_instance = InnerNoneType()
 
-    assert InnerNone == InnerNone
+    assert InnerNone == InnerNone  # noqa: PLR0124
     assert InnerNone != new_instance
     assert InnerNone != InnerNoneType('kek')
     assert InnerNone != InnerNoneType(123)
 
-    assert new_instance == new_instance
+    assert new_instance == new_instance  # noqa: PLR0124
     assert new_instance != InnerNoneType()
     assert InnerNoneType() != InnerNoneType()
 
