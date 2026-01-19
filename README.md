@@ -74,8 +74,49 @@ print(isinstance(InnerNone, InnerNoneType))
 It is recommended to use the `InnerNone` object inside libraries where a value close to None is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
 
 
-## Your own `None` objects 
+## Your own `None` objects
 
+If `None` and [`InnerNone`](#the-second-none) are not enough for you, you can create your own similar objects by instantiating `InnerNoneType`:
+
+```python
+sentinel = InnerNoneType()
+```
+
+This object will also be equal only to itself:
+
+```python
+print(sentinel == sentinel)
+#> True
+
+print(sentinel == InnerNoneType())  # Comparison with another object of the same type
+#> False
+print(sentinel == InnerNone)  # Also comparison with another object of the same type
+#> False
+print(sentinel == None)  # Comparison with None
+#> False
+print(sentinel == 123)  # Comparison with an arbitrary object
+#> False
+```
+
+You can also pass an integer or a string to the class constructor. An `InnerNoneType` object is equal to another such object with the same argument:
+
+```python
+print(InnerNoneType(123) == InnerNoneType(123))
+#> True
+print(InnerNoneType('key') == InnerNoneType('key'))
+#> True
+
+print(InnerNoneType(123) == InnerNoneType(1234))
+#> False
+print(InnerNoneType('key') == InnerNoneType('another key'))
+#> False
+print(InnerNoneType(123) == InnerNoneType())
+#> False
+print(InnerNoneType(123) == 123)
+#> False
+```
+
+> 💡 Any `InnerNoneType` objects can be used as keys in dictionaries.
 
 ## Type hinting
 
