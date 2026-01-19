@@ -30,6 +30,7 @@ However, we can't all use sentinel objects from some built-in module if we don't
 
 - [**Installation**](#installation)
 - [**The second None**](#the-second-none)
+- [**Your own None objects **](#your-own-none-objects)
 - [**Type hinting**](#type-hinting)
 
 
@@ -73,17 +74,20 @@ print(isinstance(InnerNone, InnerNoneType))
 It is recommended to use the `InnerNone` object inside libraries where a value close to None is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
 
 
+## Your own `None` objects 
+
+
 ## Type hinting
 
+> When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
 
-`InnerNone` is used the same way as `None`, with a couple of additional caveats:
+> *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
 
-1. `InnerNone` is not an instance of [`NoneType`](), it has its own parent class.
+`None` is a special value for which Python type checkers make an exception, allowing it to be used as an annotation of its own type. Unfortunately, this behavior cannot be reproduced without changing the internal implementation of existing type checkers, which I would not expect until the [PEP](https://peps.python.org/pep-0661/) is adopted.
 
-2. `InnerNone` cannot be used as your own type hint. What am I talking about? Let's look at the documentation:
+Therefore, it is suggested to use class `InnerNoneType` as a type annotation:
 
-  > When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
-
-  > *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
-
-  In most type checkers, this is implemented using a special "crutch", an exception in the code that cannot be repeated for any other value. Therefore, use `InnerNoneType` as a type hint.
+```python
+def function(default: int | InnerNoneType):
+    ...
+```
