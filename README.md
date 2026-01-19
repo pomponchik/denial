@@ -30,6 +30,7 @@ However, we can't all use sentinel objects from some built-in module if we don't
 
 - [**Installation**](#installation)
 - [**The second None**](#the-second-none)
+- [**Type hinting**](#type-hinting)
 
 
 ## Installation
@@ -45,15 +46,39 @@ You can also quickly try out this and other packages without having to install u
 
 ## The second `None`
 
-This is how this additional version of `None` and its class are imported (can be used for type hints or checks via isinstance):
+This library defines an object that is proposed to be used in almost the same way as a regular `None`. This is how it is imported:
 
 ```python
-from denial import InnerNone, InnerNoneType
+from denial import InnerNone
 ```
+
+This object is equal only to itself:
+
+```python
+print(InnerNone == InnerNone)
+#> True
+print(InnerNone == False)
+#> False
+```
+
+This object is also an instance of `InnerNoneType` class (an analog of [`NoneType`](https://docs.python.org/3/library/types.html#types.NoneType), however, is not inherited from this), which makes it possible to check through [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance):
+
+```python
+from denial import InnerNoneType
+
+print(isinstance(InnerNone, InnerNoneType))
+#> True
+```
+
+It is recommended to use the `InnerNone` object inside libraries where a value close to None is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
+
+
+## Type hinting
+
 
 `InnerNone` is used the same way as `None`, with a couple of additional caveats:
 
-1. `InnerNone` is not an instance of [`NoneType`](https://docs.python.org/3/library/types.html#types.NoneType), it has its own parent class.
+1. `InnerNone` is not an instance of [`NoneType`](), it has its own parent class.
 
 2. `InnerNone` cannot be used as your own type hint. What am I talking about? Let's look at the documentation:
 
