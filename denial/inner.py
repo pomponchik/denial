@@ -5,7 +5,7 @@ from printo import descript_data_object
 
 
 class InnerNoneType:
-    id: Optional[Union[int, str]]
+    id: Optional[Union[int, str]]  # pragma: no cover
     counter = count()
 
     def __init__(self, id: Optional[Union[int, str]] = None) -> None:  # noqa: A002
