@@ -30,7 +30,7 @@ However, we can't all use sentinel objects from some built-in module if we don't
 
 - [**Installation**](#installation)
 - [**The second None**](#the-second-none)
-- [**Your own None objects **](#your-own-none-objects)
+- [**Your own None objects**](#your-own-none-objects)
 - [**Type hinting**](#type-hinting)
 
 
