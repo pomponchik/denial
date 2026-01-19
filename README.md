@@ -19,26 +19,33 @@
 ![logo](https://raw.githubusercontent.com/pomponchik/denial/develop/docs/assets/logo_1.svg)
 
 
-The `None` constant built into Python is convenient for client code, but it is often insufficient when creating libraries. The fact is that this makes it impossible to distinguish situations where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract?
+The [`None`](https://docs.python.org/3/library/constants.html#None) constant built into Python is convenient for client code, but it is often insufficient when creating libraries. The fact is that this makes it impossible to [distinguish situations](https://colinmcginn.net/truth-value-gaps-and-meaning/) where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract?
+
+In fact, the problem of this distinction is found everywhere in library development. `Sentinel objects` are used to resolve it, and many modules from the standard library define their own. For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value. However, the use of `MISSING` is tied to the use of this library, and sometimes this constant may be needed for completely different purposes.
+
+This library defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations. In addition, this library offers a special class that allows you to create your own sentinels.
 
 
+## Table of contents
+
+- [**Installation**](#installation)
+- [**The second None**](#the-second-none)
 
 
+## Installation
 
-
-There is a small but annoying misunderstanding in the design of Python as a language. The language defines the constant `None`, which designates a special object that is used as a "stub" when it is not possible to use the "real" value. But sometimes, when implementing libraries, it is not possible to distinguish `None`, passed by the user as the default value, from `None`, which means that the value is *really undefined*. In some rare cases, this distinction is important.
-
-For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value. However, the use of `MISSING` is tied to the use of this library, and sometimes this constant may be needed for completely different purposes.
-
-This library defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations.
-
-Well, how to use it?
-
-Let's start with the installation:
+Install it:
 
 ```bash
 pip install denial
 ```
+
+You can also quickly try out this and other packages without having to install using [instld](https://github.com/pomponchik/instld).
+
+
+## The second `None`
+
+
 
 This is how this additional version of `None` and its class are imported (can be used for type hints or checks via isinstance):
 
