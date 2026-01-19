@@ -21,9 +21,9 @@
 
 The [`None`](https://docs.python.org/3/library/constants.html#None) constant built into Python is convenient for client code, but it is often insufficient when creating libraries. The fact is that this makes it impossible to [distinguish situations](https://colinmcginn.net/truth-value-gaps-and-meaning/) where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract?
 
-In fact, the problem of this distinction is found everywhere in library development. `Sentinel objects` are used to resolve it, and many modules from the standard library define their own. For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value.
+In fact, the problem of this distinction is found everywhere in library development. `Sentinel objects` are used to resolve it, and [many modules](https://mail.python.org/archives/list/python-dev@python.org/message/JBYXQH3NV3YBF7P2HLHB5CD6V3GVTY55/) from the standard library define their own. For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value.
 
-However, we can't all use sentinel objects from some built-in module if we don't need the functionality of that module. Until a PEP has been adopted on this topic, it is better to use a special package containing only this primitive. Such a package is `denial`. It defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations. In addition, this library offers a special class that allows you to create your own sentinels.
+However, we can't all use sentinel objects from some built-in module if we don't need the functionality of that module. Until the [PEP](https://peps.python.org/pep-0661/) has been adopted on this topic, it is better to use a special package containing only this primitive. Such a package is `denial`. It defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations. In addition, this library offers a special class that allows you to create your own sentinels.
 
 
 ## Table of contents
@@ -44,8 +44,6 @@ You can also quickly try out this and other packages without having to install u
 
 
 ## The second `None`
-
-
 
 This is how this additional version of `None` and its class are imported (can be used for type hints or checks via isinstance):
 
