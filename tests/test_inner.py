@@ -58,6 +58,13 @@ def test_eq():
     assert InnerNoneType('kek') != InnerNoneType(123)
     assert InnerNoneType('kek') != InnerNoneType('lol')
 
+    assert InnerNone != None
+    assert InnerNoneType() != None
+    assert InnerNoneType(123) != None
+
+    assert InnerNoneType(123) != 123
+    assert InnerNoneType('kek') != 'kek'
+
 
 def test_hashing_and_use_as_key_in_dict():
     assert hash(InnerNone) == hash(InnerNone.id)
