@@ -19,7 +19,9 @@
 ![logo](https://raw.githubusercontent.com/pomponchik/denial/develop/docs/assets/logo_1.svg)
 
 
-The `None` constant built into Python is convenient for client code, but it is often insufficient when creating libraries.
+The `None` constant built into Python is convenient for client code, but it is often insufficient when creating libraries. The fact is that this makes it impossible to distinguish situations where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract?
+
+
 
 
 
