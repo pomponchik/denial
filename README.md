@@ -1,4 +1,5 @@
-# denial
+<details>
+  <summary>ⓘ</summary>
 
 [![Downloads](https://static.pepy.tech/badge/denial/month)](https://pepy.tech/project/denial)
 [![Downloads](https://static.pepy.tech/badge/denial)](https://pepy.tech/project/denial)
@@ -11,6 +12,8 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/pomponchik/denial)
+
+</details>
 
 
 ![logo](https://raw.githubusercontent.com/pomponchik/denial/develop/docs/assets/logo_1.svg)
