@@ -58,9 +58,9 @@ def test_eq():
     assert InnerNoneType('kek') != InnerNoneType(123)
     assert InnerNoneType('kek') != InnerNoneType('lol')
 
-    assert InnerNone != None
-    assert InnerNoneType() != None
-    assert InnerNoneType(123) != None
+    assert InnerNone != None  # noqa: E711
+    assert InnerNoneType() != None  # noqa: E711
+    assert InnerNoneType(123) != None  # noqa: E711
 
     assert InnerNoneType(123) != 123
     assert InnerNoneType('kek') != 'kek'
