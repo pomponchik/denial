@@ -126,7 +126,6 @@ print(InnerNoneType(123) == 123)
 
 > 💡 Any `InnerNoneType` objects can be used as keys in dictionaries.
 
-There is an internal id inside each `InnerNoneType` object, which is incremented when it is created (yes, it is thread-safe!). It is according to it that two objects are checked for equality: they are equal if their ids are equal. However, if you pass your own string or integer id when creating an object, it is used for checks. In fact, there are 2 parallel identifier spaces: those that are assigned automatically and those that are passed to the constructor when creating objects. There may be collisions between these spaces, so it is recommended to use only one selected type of identification in your code, without mixing them.
 
 ## Type hinting
 
@@ -143,20 +142,23 @@ def function(default: int | InnerNoneType):
     ...
 ```
 
-In case you need a universal annotation for `None` and [`InnerNoneType`](#your-own-none-objects) objects, use the `Sentinel` annotation:
+In case you need a universal annotation for `None` and [`InnerNoneType`](#your-own-none-objects) objects, use the `SentinelType` annotation:
 
 ```python
-from denial import Sentinel
+from denial import SentinelType
 
-variable: Sentinel = InnerNone
-variable: Sentinel = InnerNoneType()
-variable: Sentinel = None  # All 3 annotations are correct.
+variable: SentinelType = InnerNone
+variable: SentinelType = InnerNoneType()
+variable: SentinelType = None  # All 3 annotations are correct.
 ```
 
 
 ## Analogues
 
-The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone.
+The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone. And everyone (including me!) has [*their own opinions*](https://en.wikipedia.org/wiki/Not_invented_here) on how to solve this problem.
+
+![standards](https://imgs.xkcd.com/comics/standards.png)
+> *Current state of affairs*
 
 Some programming languages are a little better thought out in this matter than Python. For example, [JavaScript](https://en.wikipedia.org/wiki/JavaScript) explicitly distinguishes between `undefined` and `null`. I think this is due to the fact that [form](https://en.wikipedia.org/wiki/HTML_form) validation is often written in JS, and it often requires such a distinction. However, this approach is not completely universal, since in the general case the number of layers of uncertainty is infinite, and here there are only 2 of them. In contrast, `denial` provides both features: the basic [`InnerNone`](#the-second-none) constant for simple cases and the ability to create an unlimited number of [`InnerNoneType`](#your-own-none-objects) instances for complex ones. Other languages, such as [AppleScript](https://en.wikipedia.org/wiki/AppleScript) and [SQL](https://en.wikipedia.org/wiki/SQL), also distinguish several different types of undefined values. A separate category includes the languages [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)), [Haskell](https://en.wikipedia.org/wiki/Haskell), [OCaml](https://en.wikipedia.org/wiki/OCaml), and [Swift](https://en.wikipedia.org/wiki/Swift_(programming_language)), which use algebraic data types.
 
