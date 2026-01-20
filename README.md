@@ -79,7 +79,7 @@ print(bool(InnerNone))
 #> False
 ```
 
-> ⓘ It is recommended to use the `InnerNone` object inside libraries where a value close to None is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
+> ⓘ It is recommended to use the `InnerNone` object inside libraries where a value close to `None` is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
 
 
 ## Your own `None` objects
