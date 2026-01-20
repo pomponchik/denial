@@ -142,3 +142,25 @@ def function(default: int | InnerNoneType):
 The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone.
 
 Some programming languages are a little better thought out in this matter than Python. For example, [JavaScript](https://en.wikipedia.org/wiki/JavaScript) explicitly distinguishes between `undefined` and `null`. I think this is due to the fact that form validation is often written in JS, and it often requires such a distinction. However, this approach is not completely universal, since in the general case the number of layers of uncertainty is infinite, and here there are only 2 of them. In contrast, `denial` provides both features: the basic [`InnerNone`](#the-second-none) constant for simple cases and the ability to create an unlimited number of [`InnerNoneType`](#your-own-none-objects) instances for complex ones. Other languages, such as [AppleScript](https://en.wikipedia.org/wiki/AppleScript) and [SQL](https://en.wikipedia.org/wiki/SQL), also distinguish several different types of undefined values. A separate category includes the languages [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)), [Haskell](https://en.wikipedia.org/wiki/Haskell), [OCaml](https://en.wikipedia.org/wiki/OCaml), and [Swift](https://en.wikipedia.org/wiki/Swift_(programming_language)), which use algebraic data types.
+
+The Python standard library uses at least [15 sentinel objects](https://mail.python.org/archives/list/python-dev@python.org/message/JBYXQH3NV3YBF7P2HLHB5CD6V3GVTY55/):
+
+- _collections_abc: __marker__
+- cgitb.__UNDEF__
+- configparser: _UNSET
+- dataclasses: _HAS_DEFAULT_FACTORY, MISSING, KW_ONLY
+- datetime.timezone._Omitted
+- fnmatch.translate() STAR
+- functools.lru_cache.sentinel (each @lru_cache creates its own sentinel object)
+- functools._NOT_FOUND
+- heapq: temporary sentinel in nsmallest() and nlargest()
+- inspect._sentinel
+- inspect._signature_fromstr() invalid
+- plistlib._undefined
+- runpy._ModifiedArgv0._sentinel
+- sched: _sentinel
+- traceback: _sentinel
+
+Since the language itself does not regulate this in any way, there is chaos and code duplication. Before creating this library, I used one of them, but later realized that importing a module that I don't need for anything other than sentinel is a bad idea.
+
+Not only did I come to this conclusion, the community also tried to standardize it. A standard for sentinels was proposed in [PEP-661](https://peps.python.org/pep-0661/), but at the time of writing it has still not been adopted, as there is no consensus on a number of important issues. This topic was also indirectly raised in [PEP-484](https://peps.python.org/pep-0484/), as well as in [PEP-695](https://peps.python.org/pep-0695/) and in [PEP-696](https://peps.python.org/pep-0696/). Unfortunately, while there is no "official" solution, everyone is still forced to reinvent the wheel on their own.
