@@ -123,3 +123,11 @@ def test_bool():
     assert not bool(InnerNoneType(0))
     assert not bool(InnerNoneType(123))
     assert not bool(InnerNoneType('kek'))
+
+
+def test_auto_flag():
+    assert InnerNone != InnerNoneType(0)
+
+    instance = InnerNoneType()
+
+    assert InnerNoneType(instance.id) != instance
