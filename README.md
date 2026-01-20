@@ -193,4 +193,4 @@ And of course, there are still different ways to implement primitive sentinels i
 
 Q: Is this library the best option for sentinels?
 
-A: Sentinel seems like a very simple task conceptually, we just need None more. But suddenly, creating a good sentinel option is one of the most difficult issues. There are too many ways to do this and too many trade-offs in which you need to choose a side. Any decision made is controversial. So I'm not claiming to be the best solution to this issue, but I've tried to eliminate all the obvious disadvantages that don't involve trading.
+A: Sentinel seems like a very simple task conceptually, we just need more None's. But suddenly, creating a good sentinel option is one of the most difficult issues. There are too many ways to do this and too many trade-offs in which you need to choose a side. Any decision made is controversial. So I'm not claiming to be the best solution to this issue, but I've tried to eliminate all the obvious disadvantages that don't involve trading.
