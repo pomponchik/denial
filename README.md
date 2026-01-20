@@ -134,3 +134,10 @@ Therefore, it is suggested to use class `InnerNoneType` as a type annotation:
 def function(default: int | InnerNoneType):
     ...
 ```
+
+
+## Analogues
+
+The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone.
+
+Some programming languages are a little better thought out in this matter than Python. For example, [JavaScript](https://en.wikipedia.org/wiki/JavaScript) explicitly distinguishes between `undefined` and `null`. I think this is due to the fact that form validation is often written in JS, and it often requires such a distinction. However, this approach is not completely universal, since in the general case the number of layers of uncertainty is infinite, and here there are only 2 of them. In contrast, `denial` provides both features: the basic [`InnerNone`](#the-second-none) constant for simple cases and the ability to create an unlimited number of [`InnerNoneType`](#your-own-none-objects) instances for complex ones.
