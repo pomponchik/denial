@@ -18,6 +18,6 @@ def test_sentinel_is_including_inner_none_type():
 
 @pytest.mark.mypy_testing
 def test_wrong_using_of_sentinel():
-    variable: Sentinel = 123 # E: [assignment]
-    another_variable: Sentinel = 'kek' # E: [assignment]
-    another_else_variable: Sentinel = False # E: [assignment]
+    variable: Sentinel = 123 # E: [assignment] # noqa: F841
+    another_variable: Sentinel = 'kek' # E: [assignment] # noqa: F841
+    another_else_variable: Sentinel = False # E: [assignment] # noqa: F841
