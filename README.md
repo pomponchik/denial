@@ -118,7 +118,7 @@ print(InnerNoneType(123) == 123)
 
 > 💡 Any `InnerNoneType` objects can be used as keys in dictionaries.
 
-There is an internal id inside each `InnerNoneType` object, which is incremented when it is created (yes, it is thread-safe!). It is according to it that two objects are checked for equality: they are equal if their ids are equal. However, if you pass your own string or numeric id when creating an object, it is used for checks. In fact, there are 2 parallel identifier spaces: those that are assigned automatically and those that are passed to the constructor when creating objects. There may be collisions between these spaces, so it is recommended to use only one selected type of identification in your code, without mixing them.
+There is an internal id inside each `InnerNoneType` object, which is incremented when it is created (yes, it is thread-safe!). It is according to it that two objects are checked for equality: they are equal if their ids are equal. However, if you pass your own string or integer id when creating an object, it is used for checks. In fact, there are 2 parallel identifier spaces: those that are assigned automatically and those that are passed to the constructor when creating objects. There may be collisions between these spaces, so it is recommended to use only one selected type of identification in your code, without mixing them.
 
 ## Type hinting
 
