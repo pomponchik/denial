@@ -142,14 +142,14 @@ def function(default: int | InnerNoneType):
     ...
 ```
 
-In case you need a universal annotation for `None` and [`InnerNoneType`](#your-own-none-objects) objects, use the `Sentinel` annotation:
+In case you need a universal annotation for `None` and [`InnerNoneType`](#your-own-none-objects) objects, use the `SentinelType` annotation:
 
 ```python
-from denial import Sentinel
+from denial import SentinelType
 
-variable: Sentinel = InnerNone
-variable: Sentinel = InnerNoneType()
-variable: Sentinel = None  # All 3 annotations are correct.
+variable: SentinelType = InnerNone
+variable: SentinelType = InnerNoneType()
+variable: SentinelType = None  # All 3 annotations are correct.
 ```
 
 

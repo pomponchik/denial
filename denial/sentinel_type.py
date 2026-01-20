@@ -8,4 +8,4 @@ else:
 
 from denial import InnerNoneType
 
-Sentinel: TypeAlias = Optional[InnerNoneType]
+SentinelType: TypeAlias = Optional[InnerNoneType]
