@@ -34,9 +34,12 @@ def test_new_instance_has_id_more_0():
 
 def test_new_instance_repr():
     new_instance = InnerNoneType()
+
     assert repr(new_instance) == f'InnerNoneType({new_instance.id})'
-    assert repr(InnerNoneType('kek')) == "InnerNoneType('kek')"
-    assert repr(InnerNoneType(123)) == "InnerNoneType(123)"
+    assert repr(InnerNoneType('kek')) == "InnerNoneType('kek', auto=False)"
+    assert repr(InnerNoneType(123)) == "InnerNoneType(123, auto=False)"
+
+    assert repr(InnerNoneType(0)) == "InnerNoneType(0, auto=False)"
 
 
 def test_eq():
@@ -131,3 +134,10 @@ def test_auto_flag():
     instance = InnerNoneType()
 
     assert InnerNoneType(instance.id) != instance
+
+def test_i_can_use_auto_flag_manually():
+    assert InnerNoneType(0, auto=True) == InnerNone
+
+    instance = InnerNoneType()
+
+    assert InnerNoneType(instance.id, auto=True) == instance
