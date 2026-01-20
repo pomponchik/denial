@@ -187,3 +187,10 @@ Not only did I come to this conclusion, the community also tried to standardize 
 In addition to `denial`, there are many packages with sentinels in [`Pypi`](https://pypi.org/). For example, there is the [sentinel](https://pypi.org/project/sentinel/) library, but its API seemed to me overcomplicated for such a simple task. The [sentinels](https://pypi.org/project/sentinels/) package is quite simple, but in its internal implementation it also relies on the [global registry](https://github.com/vmalloc/sentinels/blob/37e67ed20d99aa7492e52316e9af7f930b9ac578/sentinels/__init__.py#L11) and contains some other code defects. The [sentinel-value](https://github.com/vdmit11/sentinel-value) package is very similar to `denial`, but I did not see the possibility of autogenerating sentinel ids there. Of course, there are other packages that I haven't reviewed here.
 
 And of course, there are still different ways to implement primitive sentinels in your code in a few lines of code without using third-party packages.
+
+
+## FAQ
+
+Q: Is this library the best option for sentinels?
+
+A: Sentinel seems like a very simple task conceptually, we just need None more. But suddenly, creating a good sentinel option is one of the most difficult issues. There are too many ways to do this and too many trade-offs in which you need to choose a side. Any decision made is controversial. So I'm not claiming to be the best solution to this issue, but I've tried to eliminate all the obvious disadvantages that don't involve trading.
