@@ -136,6 +136,16 @@ def function(default: int | InnerNoneType):
     ...
 ```
 
+In case you need a universal annotation for `None` and [`InnerNoneType`](#your-own-none-objects) objects, use the `Sentinel` annotation:
+
+```python
+from denial import Sentinel
+
+variable: Sentinel = InnerNone
+variable: Sentinel = InnerNoneType()
+variable: Sentinel = None  # All 3 annotations are correct.
+```
+
 
 ## Analogues
 
