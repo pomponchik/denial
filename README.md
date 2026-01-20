@@ -23,7 +23,7 @@ The [`None`](https://docs.python.org/3/library/constants.html#None) constant bui
 
 In fact, the problem of this distinction is found everywhere in library development. `Sentinel objects` are used to resolve it, and [many modules](https://mail.python.org/archives/list/python-dev@python.org/message/JBYXQH3NV3YBF7P2HLHB5CD6V3GVTY55/) from the standard library define their own. For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value.
 
-However, we can't all use sentinel objects from some built-in module if we don't need the functionality of that module. Until the [PEP](https://peps.python.org/pep-0661/) has been adopted on this topic, it is better to use a special package containing only this primitive. Such a package is `denial`. It defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and None as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations. In addition, this library offers a special class that allows you to create your own sentinels.
+However, we can't all use sentinel objects from some built-in module if we don't need the functionality of that module. Until the [PEP](https://peps.python.org/pep-0661/) has been adopted on this topic, it is better to use a special package containing only this primitive. Such a package is `denial`. It defines just such an object: `None` for situations where you need to distinguish `None` as a value from the user, and `None` as a designation that something is really undefined. This value should not fall "outside", into the user's space, it should remain only inside the libraries implementations. In addition, this library offers a special class that allows you to create your own sentinels.
 
 
 ## Table of contents
@@ -32,6 +32,7 @@ However, we can't all use sentinel objects from some built-in module if we don't
 - [**The second None**](#the-second-none)
 - [**Your own None objects**](#your-own-none-objects)
 - [**Type hinting**](#type-hinting)
+- [**Analogues**](#analogues)
 
 
 ## Installation
@@ -62,7 +63,7 @@ print(InnerNone == False)
 #> False
 ```
 
-This object is also an instance of `InnerNoneType` class (an analog of [`NoneType`](https://docs.python.org/3/library/types.html#types.NoneType), however, is not inherited from this), which makes it possible to check through [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance):
+This object is also an instance of [`InnerNoneType`](#your-own-none-objects) class (an analog of [`NoneType`](https://docs.python.org/3/library/types.html#types.NoneType), however, is not inherited from this), which makes it possible to check through [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance):
 
 ```python
 from denial import InnerNoneType
@@ -71,7 +72,14 @@ print(isinstance(InnerNone, InnerNoneType))
 #> True
 ```
 
-It is recommended to use the `InnerNone` object inside libraries where a value close to None is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
+Like `None`, `InnerNone` (as well as all other `InnerNoneType` objects) always returns `False` when cast to `bool`:
+
+```python
+print(bool(InnerNone))
+#> False
+```
+
+> ⓘ It is recommended to use the `InnerNone` object inside libraries where a value close to `None` is required, but meaning a situation where the value is not really set, rather than set as `None`. This object should be completely isolated from the user code space. None of the public methods of your library should return this object.
 
 
 ## Your own `None` objects
@@ -118,6 +126,8 @@ print(InnerNoneType(123) == 123)
 
 > 💡 Any `InnerNoneType` objects can be used as keys in dictionaries.
 
+There is an internal id inside each `InnerNoneType` object, which is incremented when it is created (yes, it is thread-safe!). It is according to it that two objects are checked for equality: they are equal if their ids are equal. However, if you pass your own string or integer id when creating an object, it is used for checks. In fact, there are 2 parallel identifier spaces: those that are assigned automatically and those that are passed to the constructor when creating objects. There may be collisions between these spaces, so it is recommended to use only one selected type of identification in your code, without mixing them.
+
 ## Type hinting
 
 > When used in a type hint, the expression `None` is considered equivalent to `type(None)`.
@@ -132,3 +142,46 @@ Therefore, it is suggested to use class `InnerNoneType` as a type annotation:
 def function(default: int | InnerNoneType):
     ...
 ```
+
+In case you need a universal annotation for `None` and [`InnerNoneType`](#your-own-none-objects) objects, use the `Sentinel` annotation:
+
+```python
+from denial import Sentinel
+
+variable: Sentinel = InnerNone
+variable: Sentinel = InnerNoneType()
+variable: Sentinel = None  # All 3 annotations are correct.
+```
+
+
+## Analogues
+
+The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone.
+
+Some programming languages are a little better thought out in this matter than Python. For example, [JavaScript](https://en.wikipedia.org/wiki/JavaScript) explicitly distinguishes between `undefined` and `null`. I think this is due to the fact that [form](https://en.wikipedia.org/wiki/HTML_form) validation is often written in JS, and it often requires such a distinction. However, this approach is not completely universal, since in the general case the number of layers of uncertainty is infinite, and here there are only 2 of them. In contrast, `denial` provides both features: the basic [`InnerNone`](#the-second-none) constant for simple cases and the ability to create an unlimited number of [`InnerNoneType`](#your-own-none-objects) instances for complex ones. Other languages, such as [AppleScript](https://en.wikipedia.org/wiki/AppleScript) and [SQL](https://en.wikipedia.org/wiki/SQL), also distinguish several different types of undefined values. A separate category includes the languages [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)), [Haskell](https://en.wikipedia.org/wiki/Haskell), [OCaml](https://en.wikipedia.org/wiki/OCaml), and [Swift](https://en.wikipedia.org/wiki/Swift_(programming_language)), which use algebraic data types.
+
+The Python standard library uses at least [15 sentinel objects](https://mail.python.org/archives/list/python-dev@python.org/message/JBYXQH3NV3YBF7P2HLHB5CD6V3GVTY55/):
+
+- **_collections_abc: __marker__**
+- **cgitb.__UNDEF__**
+- **configparser: _UNSET**
+- **dataclasses: _HAS_DEFAULT_FACTORY, MISSING, KW_ONLY**
+- **datetime.timezone._Omitted**
+- **fnmatch.translate() STAR**
+- **functools.lru_cache.sentinel** (each @lru_cache creates its own sentinel object)
+- **functools._NOT_FOUND**
+- **heapq**: temporary sentinel in nsmallest() and nlargest()
+- **inspect._sentinel**
+- **inspect._signature_fromstr()** invalid
+- **plistlib._undefined**
+- **runpy._ModifiedArgv0._sentinel**
+- **sched: _sentinel**
+- **traceback: _sentinel**
+
+Since the language itself does not regulate this in any way, there is chaos and code duplication. Before creating this library, I used one of them, but later realized that importing a module that I don't need for anything other than sentinel is a bad idea.
+
+Not only did I come to this conclusion, the community also tried to standardize it. A standard for sentinels was proposed in [PEP-661](https://peps.python.org/pep-0661/), but at the time of writing it has still not been adopted, as there is no consensus on a number of important issues. This topic was also indirectly raised in [PEP-484](https://peps.python.org/pep-0484/), as well as in [PEP-695](https://peps.python.org/pep-0695/) and in [PEP-696](https://peps.python.org/pep-0696/). Unfortunately, while there is no "official" solution, everyone is still forced to reinvent the wheel on their own. Some, such as [Pydantic](https://github.com/pydantic/pydantic/issues/12090), are proactive, as if `PEP-661` has already been adopted. Personally, I don't like the solution proposed in `PEP-661`, mainly because of the implementation examples that suggest using a global registry of all created sentinels, which can lead to memory leaks and concurrency limitations.
+
+In addition to `denial`, there are many packages with sentinels in [`Pypi`](https://pypi.org/). For example, there is the [sentinel](https://pypi.org/project/sentinel/) library, but its API seemed to me overcomplicated for such a simple task. The [sentinels](https://pypi.org/project/sentinels/) package is quite simple, but in its internal implementation it also relies on the [global registry](https://github.com/vmalloc/sentinels/blob/37e67ed20d99aa7492e52316e9af7f930b9ac578/sentinels/__init__.py#L11) and contains some other code defects. The [sentinel-value](https://github.com/vdmit11/sentinel-value) package is very similar to `denial`, but I did not see the possibility of autogenerating sentinel ids there. Of course, there are other packages that I haven't reviewed here.
+
+And of course, there are still different ways to implement primitive sentinels in your code in a few lines of code without using third-party packages.

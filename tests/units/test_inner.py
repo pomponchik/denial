@@ -77,6 +77,23 @@ def test_hashing_and_use_as_key_in_dict():
     dict_with_it = {new_instance: 'kek'}
     assert dict_with_it[new_instance] == 'kek'
 
+    another_instance = InnerNoneType()
+
+    dict_with_both = {new_instance: 'kek', another_instance: 'lol'}
+
+    assert dict_with_both[new_instance] == 'kek'
+    assert dict_with_both[another_instance] == 'lol'
+
+    dict_with_named_ids = {InnerNoneType('kek'): 'kek', InnerNoneType('lol'): 'lol'}
+
+    assert dict_with_named_ids[InnerNoneType('kek')] == 'kek'
+    assert dict_with_named_ids[InnerNoneType('lol')] == 'lol'
+
+    dict_with_integer_ids = {InnerNoneType(123): 123, InnerNoneType(1234): 1234}
+
+    assert dict_with_integer_ids[InnerNoneType(123)] == 123
+    assert dict_with_integer_ids[InnerNoneType(1234)] == 1234
+
 
 def test_thread_safety():
     number_of_iterations = 10_000
@@ -97,3 +114,12 @@ def test_thread_safety():
         thread.join()
 
     assert len(set(x.id for x in nones)) == number_of_iterations * number_of_threads
+
+
+def test_bool():
+    assert not bool(None)
+    assert not bool(InnerNone)
+    assert not bool(InnerNoneType())
+    assert not bool(InnerNoneType(0))
+    assert not bool(InnerNoneType(123))
+    assert not bool(InnerNoneType('kek'))
