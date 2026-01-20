@@ -155,7 +155,7 @@ variable: SentinelType = None  # All 3 annotations are correct.
 
 ## Analogues
 
-The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone. And everyone has *their own opinions* on how to solve this problem.
+The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone. And everyone has [*their own opinions*](https://en.wikipedia.org/wiki/Not_invented_here) on how to solve this problem.
 
 ![standards](https://imgs.xkcd.com/comics/standards.png)
 > *Current state of affairs*
