@@ -19,7 +19,7 @@
 ![logo](https://raw.githubusercontent.com/pomponchik/denial/develop/docs/assets/logo_1.svg)
 
 
-The [`None`](https://docs.python.org/3/library/constants.html#None) constant built into Python is convenient for client code, but it is often insufficient when creating libraries. The fact is that this makes it impossible to [distinguish situations](https://colinmcginn.net/truth-value-gaps-and-meaning/) where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract?
+The [`None`](https://docs.python.org/3/library/constants.html#None) constant built into Python is convenient for client code, but it is often insufficient when creating libraries. The fact is that this makes it impossible to [distinguish situations](https://en.wikipedia.org/wiki/Semipredicate_problem) where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract?
 
 In fact, the problem of this distinction is found everywhere in library development. `Sentinel objects` are used to resolve it, and [many modules](https://mail.python.org/archives/list/python-dev@python.org/message/JBYXQH3NV3YBF7P2HLHB5CD6V3GVTY55/) from the standard library define their own. For example, the [dataclasses](https://docs.python.org/3/library/dataclasses.html) library defines a special [MISSING](https://docs.python.org/3/library/dataclasses.html#dataclasses.MISSING) constant for such cases. This is used to separate the cases when the user has not set a default value from the case when he has set `None` as the default value.
 
@@ -155,7 +155,7 @@ variable: SentinelType = None  # All 3 annotations are correct.
 
 ## Analogues
 
-The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone. And everyone (including me!) has [*their own opinions*](https://en.wikipedia.org/wiki/Not_invented_here) on how to solve this problem.
+The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the [questions of cognition](https://colinmcginn.net/truth-value-gaps-and-meaning/) are universal for everyone. And everyone (including me!) has [*their own opinions*](https://en.wikipedia.org/wiki/Not_invented_here) on how to solve this problem.
 
 ![standards](https://imgs.xkcd.com/comics/standards.png)
 > *Current state of affairs*
