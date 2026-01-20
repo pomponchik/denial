@@ -201,4 +201,4 @@ A: To ensure that a certain value is used in the program only once, there are 2 
 
 Q: What could be the reasons to use `InnerNoneType` with arguments? It always seems like a bad idea. How about removing this feature altogether?
 
-A:
+A: This is *almost always* a bad idea. But in some extremely *rare cases*, it can be useful. It may be that two sections of code that do not know about each other will want to transfer a compatible sentinel to each other. It is even possible that it will be transmitted over the network and "recreated" on the other side. It is for such cases that the option to use your own identifiers has been left. But it's better to use empty brackets.
