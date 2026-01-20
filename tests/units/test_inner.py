@@ -114,3 +114,12 @@ def test_thread_safety():
         thread.join()
 
     assert len(set(x.id for x in nones)) == number_of_iterations * number_of_threads
+
+
+def test_bool():
+    assert not bool(None)
+    assert not bool(InnerNone)
+    assert not bool(InnerNoneType())
+    assert not bool(InnerNoneType(0))
+    assert not bool(InnerNoneType(123))
+    assert not bool(InnerNoneType('kek'))

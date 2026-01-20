@@ -27,5 +27,8 @@ class InnerNoneType:
             return 'InnerNone'
         return descript_data_object(type(self).__name__, (self.id,), {})
 
+    def __bool__(self) -> bool:
+        return False
+
 
 InnerNone = InnerNoneType()
