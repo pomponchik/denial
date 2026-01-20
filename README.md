@@ -32,6 +32,7 @@ However, we can't all use sentinel objects from some built-in module if we don't
 - [**The second None**](#the-second-none)
 - [**Your own None objects**](#your-own-none-objects)
 - [**Type hinting**](#type-hinting)
+- [**Analogues**](#analogues)
 
 
 ## Installation
@@ -140,4 +141,4 @@ def function(default: int | InnerNoneType):
 
 The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the questions of cognition are universal for everyone.
 
-Some programming languages are a little better thought out in this matter than Python. For example, [JavaScript](https://en.wikipedia.org/wiki/JavaScript) explicitly distinguishes between `undefined` and `null`. I think this is due to the fact that form validation is often written in JS, and it often requires such a distinction. However, this approach is not completely universal, since in the general case the number of layers of uncertainty is infinite, and here there are only 2 of them. In contrast, `denial` provides both features: the basic [`InnerNone`](#the-second-none) constant for simple cases and the ability to create an unlimited number of [`InnerNoneType`](#your-own-none-objects) instances for complex ones.
+Some programming languages are a little better thought out in this matter than Python. For example, [JavaScript](https://en.wikipedia.org/wiki/JavaScript) explicitly distinguishes between `undefined` and `null`. I think this is due to the fact that form validation is often written in JS, and it often requires such a distinction. However, this approach is not completely universal, since in the general case the number of layers of uncertainty is infinite, and here there are only 2 of them. In contrast, `denial` provides both features: the basic [`InnerNone`](#the-second-none) constant for simple cases and the ability to create an unlimited number of [`InnerNoneType`](#your-own-none-objects) instances for complex ones. Other languages, such as [AppleScript](https://en.wikipedia.org/wiki/AppleScript) and [SQL](https://en.wikipedia.org/wiki/SQL), also distinguish several different types of undefined values. A separate category includes the languages [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)), [Haskell](https://en.wikipedia.org/wiki/Haskell), [OCaml](https://en.wikipedia.org/wiki/OCaml), and [Swift](https://en.wikipedia.org/wiki/Swift_(programming_language)), which use algebraic data types.
