@@ -213,7 +213,9 @@ Q: What could be the reasons to use `InnerNoneType` with arguments? It always se
 
 A: This is *almost always* a bad idea. But in some extremely *rare cases*, it can be useful. It may be that two sections of code that do not know about each other will want to transfer a compatible sentinel to each other. It is even possible that it will be transmitted over the network and "recreated" on the other side. It is for such cases that the option to use your own identifiers has been left. But it's better to use empty brackets.
 
-Q: Why not use a separate class with singleton objects for each situation when we need a sentinel? Then it will be possible to make checks through isinstance, and it will also be possible to write more accurate type hints.
+Q: Why not use a separate class with singleton objects for each situation when we need a sentinel? Then it will be possible to make checks through [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance), and it will also be possible to write more accurate type hints.
+
+A: The ability to use classes as type hints is a compelling argument. It would be possible to create several classes in different parts of the program, assigning different semantics to each of them, and then checking compliance using a type checker such as mypy. However, I did not make this a basic mechanism for denial, as I believe that in most cases the semantics will not actually differ. At the same time, creating a new class each time is more verbose than creating objects. However, I left the option to inherit from InnerNoneType if you still consider it necessary in your code. Objects of inheriting classes (if you do not override the behavior of the class in any way) will behave the same as InnerNoneType objects.
 
 Q: You're using only one `InnerNoneType` class, but the internal id that makes objects unique can be either generated automatically or passed by the user. Doesn't this mean that it would be worthwhile to allocate 2 independent classes?
 
@@ -223,11 +225,4 @@ Q: The task of making sentinel is too simple, is there really a need for additio
 
 Q: Why is `InnerNoneType` not inherited from `NoneType`?
 
-A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the isinstance check as an analogue of the "is None" check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
-
-
-
-
-В фак: почему не использвать просто object()?? И проверки через is. У нас уже есть источник уникальных id — адреса в памяти компьютера. Проблемы: переиспользование id и их неуникальность. В цикле id (object()) == id(object())
-
-Как обеспечивается уникальность объектов InnerNoneType?
+A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the `isinstance` check as an analogue of the "is None" check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
