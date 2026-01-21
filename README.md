@@ -132,6 +132,8 @@ print(InnerNoneType(123) == 123)
 
 > 💡 Any `InnerNoneType` objects can be used as keys in dictionaries.
 
+> ⚠️ For most situations, I do not recommend passing arguments to the class constructor. This can lead to situations where two identifiers from different parts of your code accidentally end up being the same, which can result in errors that are difficult to catch. If you do not pass arguments, the uniqueness of each `InnerNoneType` object created is guaranteed.
+
 
 ## Type hinting
 
