@@ -39,6 +39,7 @@ However, we can't all use sentinel objects from some built-in module if we don't
 
 ## The problem
 
+Добавить про многослойности неопределенности 
 
 ## Installation
 
@@ -160,7 +161,7 @@ variable: SentinelType = None  # All 3 annotations are correct.
 
 ## Analogues
 
-The problem of distinguishing types of uncertainty is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the [questions of cognition](https://colinmcginn.net/truth-value-gaps-and-meaning/) are universal for everyone. And everyone (including me!) has [*their own opinions*](https://en.wikipedia.org/wiki/Not_invented_here) on how to solve this problem.
+[The problem of distinguishing types of uncertainty](#the-problem) is often faced by programmers and they solve it in a variety of ways. This problem concerns all programming languages, because it ultimately describes our *knowledge*, and the [questions of cognition](https://colinmcginn.net/truth-value-gaps-and-meaning/) are universal for everyone. And everyone (including me!) has [*their own opinions*](https://en.wikipedia.org/wiki/Not_invented_here) on how to solve this problem.
 
 ![standards](https://imgs.xkcd.com/comics/standards.png)
 > *Current state of affairs*
@@ -200,10 +201,33 @@ Q: Is this library the best option for sentinels?
 
 A: Sentinel seems like a very simple task conceptually, we just need more `None`'s. But suddenly, creating a good sentinel option is one of the most difficult issues. There are too many ways to do this and too many trade-offs in which you need to choose a side. Any decision made is controversial. So I'm not claiming to be the best solution to this issue, but I've tried to eliminate all the obvious disadvantages that don't involve trading. I'm not sure if it's even possible to find the best solution in this area, so all I can do is make *[an arbitrary decision](https://en.wikipedia.org/wiki/Analysis_paralysis)* and stick to it. If you want, join me.
 
+Добавить что сконструировать примитив сложно, так как все упирается в аксиомы
+
 Q: Why is the uniqueness of the values not ensured? The `None` object is a singleton. In Python, it is impossible to access the `None` name and get a different value. But in `denial`, it is possible for a user to create two different objects by passing two identical IDs there. In rare cases, this can lead to unintended errors, for example, if the same identifier is accidentally used in two different places in the program. Why is that?
 
 A: To ensure that a certain value is used in the program only once, there are 2 possible ways: 1. create a registry of all such values and check each new value for uniqueness in runtime; 2. check the source code statically, for example using a special [linter](https://en.wikipedia.org/wiki/Lint_(software)). I found the second option too difficult for now, so the first one remains. The main problem is the possibility of [memory leaks](https://en.wikipedia.org/wiki/Memory_leak). If you create unique identifiers in a loop, the registry may overflow. Would you say that no one will create them in a loop? Well, I'm not ready to take any chances. It also creates problems with concurrency. The fact is that checking the value in the registry and entering it into the registry are two independent operations that take some time between them, which means that errors are possible due to the [race condition](https://en.wikipedia.org/wiki/Race_condition). If you protect this operation with a [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)), it will increase the percentage of sequential execution time in the program, which means it will slow down the entire program due to [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law). Because I can imagine situations where creating sentinels would be a fairly frequent operation and it would create performance problems. It's time to make fun of Python's performance because of the [GIL](https://en.wikipedia.org/wiki/Global_interpreter_lock), but I hope for a better future. Current compromise: always use [`InnerNoneType`](#your-own-none-objects) without arguments, unless you have a serious reason to do otherwise. In this case, the uniqueness of each object is guaranteed, since "under the hood", each time a new object is created, an internal counter is incremented (thread-safe!), which then checks the uniqueness of the object.
 
+Фраза "уменьшать глобальное состояние"
+
 Q: What could be the reasons to use `InnerNoneType` with arguments? It always seems like a bad idea. How about removing this feature altogether?
 
 A: This is *almost always* a bad idea. But in some extremely *rare cases*, it can be useful. It may be that two sections of code that do not know about each other will want to transfer a compatible sentinel to each other. It is even possible that it will be transmitted over the network and "recreated" on the other side. It is for such cases that the option to use your own identifiers has been left. But it's better to use empty brackets.
+
+Q: Why not use a separate class with singleton objects for each situation when we need a sentinel? Then it will be possible to make checks through isinstance, and it will also be possible to write more accurate type hints.
+
+Q: You're using only one `InnerNoneType` class, but the internal id that makes objects unique can be either generated automatically or passed by the user. Doesn't this mean that it would be worthwhile to allocate 2 independent classes?
+
+Q: The task of making sentinel is too simple, is there really a need for additional dependencies?
+
+
+
+Q: Why is `InnerNoneType` not inherited from `NoneType`?
+
+A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the isinstance check as an analogue of the "is None" check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
+
+
+
+
+В фак: почему не использвать просто object()?? И проверки через is. У нас уже есть источник уникальных id — адреса в памяти компьютера. Проблемы: переиспользование id и их неуникальность. В цикле id (object()) == id(object())
+
+Как обеспечивается уникальность объектов InnerNoneType?
