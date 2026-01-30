@@ -240,15 +240,12 @@ Q: Why is `InnerNoneType` not inherited from `NoneType`?
 
 A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the `isinstance` check as an analogue of the `is None` check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
 
+Q: How is the uniqueness of `InnerNoneType` objects ensured?
 
-
-
+A: If you create `InnerNoneType` objects without passing any arguments to the constructor, an id that is unique within the process is created inside each object when it is created. It is by this id that the object will check whether it is equal to another `InnerNoneType` object. It will be equal to another object only if it has the same id inside it, which is usually impossible, and therefore the object remains equal only to itself. If you passed your own id when creating the object, the automatic id is not created, yours is used. In this case, it is your job to track possible unwanted intersections. The library can also distinguish between objects where the id is created automatically and where it is passed from outside, using a special flag inside each value. This guarantees that there are no intersections between automatically generated and non-automatically generated ids.
 
 
 В фак: почему не использвать просто object()?? И проверки через is. У нас уже есть источник уникальных id — адреса в памяти компьютера. Проблемы: переиспользование id и их неуникальность. В цикле id (object()) == id(object())
 
-Как обеспечивается уникальность объектов InnerNoneType?
 
 Добавить тесты на возможность отнаследоваться и использовать наследника
-
-Почему константы не две? нан и андефайнд
