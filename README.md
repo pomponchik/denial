@@ -158,7 +158,7 @@ print(InnerNoneType(123) == 123)
 
 > *[Official typing documentation](https://typing.python.org/en/latest/spec/special-types.html#none)*
 
-`None` is a special value for which Python type checkers make an exception, allowing it to be used as an annotation of its own type. Unfortunately, this behavior cannot be reproduced without changing the internal implementation of existing type checkers, which I would not expect until the [PEP](https://peps.python.org/pep-0661/) is adopted.
+`None` is a special value for which Python type checkers make an exception, allowing it to be used as an annotation of its own type. Unfortunately, this behavior cannot be reproduced without changing the internal implementation of existing type checkers, which I would not expect until the [PEP](https://peps.python.org/pep-0661/) is adopted. However, there is one type checker that can work with objects from `denial`: [`simtypes`](https://github.com/pomponchik/simtypes). But this thing is very primitive and is only intended for runtime.
 
 Therefore, it is suggested to use class `InnerNoneType` as a type annotation:
 
