@@ -46,7 +46,7 @@ Different programming languages and environments offer [different models](#analo
 
 ![One, Two, Many](https://imgs.xkcd.com/comics/one_two.png)
 
-> *Yes, this library was also created by primitive cultures*
+> *Yes, this library was also created by [primitive cultures](https://en.wiktionary.org/wiki/Pythonist#English)*
 
 The first option is almost always sufficient. The `denial` library offers special primitives that cover the second and third options, providing complete coverage of uncertainty options for Python:
 
