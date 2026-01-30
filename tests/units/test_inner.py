@@ -108,7 +108,7 @@ def test_thread_safety():
         for _ in range(number_of_iterations):
             nones.append(InnerNoneType())
 
-    threads = [Thread(target=go_increment()) for _ in range(number_of_threads)]
+    threads = [Thread(target=go_increment) for _ in range(number_of_threads)]
 
     for thread in threads:
         thread.start()
