@@ -236,13 +236,9 @@ Q: You're using only one `InnerNoneType` class, but the internal id that makes o
 
 A: I did this to reduce cognitive load. I haven't seen any cases where a clear division into two classes provides a practical (rather than aesthetic) benefit, while you don't have to think about which class to import and how its use differs.
 
-Q: The task of making sentinel is too simple, is there really a need for additional dependencies?
-
-
-
 Q: Why is `InnerNoneType` not inherited from `NoneType`?
 
-A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the `isinstance` check as an analogue of the "is None" check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
+A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the `isinstance` check as an analogue of the `is None` check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
 
 
 
