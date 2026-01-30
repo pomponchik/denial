@@ -18,8 +18,7 @@
 
 ![logo](https://raw.githubusercontent.com/pomponchik/denial/develop/docs/assets/logo_1.svg)
 
-
-Python's built-in [`None`](https://docs.python.org/3/library/constants.html#None) constant is convenient for client code, but it is often insufficient when creating libraries. This makes it impossible to [distinguish situations](https://en.wikipedia.org/wiki/Semipredicate_problem) where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract? Then read the more detailed [description of the problem below](#the-problem).
+Python's built-in [`None`](https://docs.python.org/3/library/constants.html#None) constant may not be sufficient to [distinguish situations](https://en.wikipedia.org/wiki/Semipredicate_problem) where a value is *undefined* from situations where it is *defined as undefined*. Does that sound too abstract? Then read below the more detailed [description of the problem](#the-problem) and what [solutions](#analogues) exist for it.
 
 
 ## Table of contents
