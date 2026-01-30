@@ -39,7 +39,22 @@ However, we can't all use sentinel objects from some built-in module if we don't
 
 ## The problem
 
-Добавить про многослойности неопределенности 
+Programmers encounter uncertainty everywhere. We don't know in advance whether a user will enter a valid value into a form, or whether a given operation on two numbers is possible. To highlight uncertainty as a separate entity, programmers have come up with so-called sentinel objects. These can be very different: NULL, None, nil, undefined, NaN, and an infinite number of others.
+
+Different programming languages and environments offer different models for representing uncertainty as objects. This is usually related to how a particular language has evolved and what forms of uncertainty its users most often encounter. Globally, I distinguish [three](https://numberwarrior.wordpress.com/2010/07/30/is-one-two-many-a-myth/) main models:
+
+- **One simple sentinel object**. This approach works great in most cases. In most real code, we don't need to distinguish between more than one type of uncertainty. This is the default model offered by Python. However, it breaks down when we need to distinguish between situations where we know we don't know something and situations where we don't know that we don't know something.
+
+- **Two sentinel objects**. This is more common in languages where, for example, a lot of user input is processed and where it is necessary to distinguish between different types of empty values.
+
+- **An infinite recursive hierarchy of sentinel objects**. From a philosophical point of view, uncertainty cannot be considered as a finite object, because that would already be a definite judgment about uncertainty. Therefore, we should consider uncertainty as consisting of an infinite number of layers. In practice, such structures can arise, for example, when we extract data from a large number of diverse sources but want to clearly distinguish at which stage of the pipeline the data was not found.
+
+![One, Two, Many](https://imgs.xkcd.com/comics/one_two.png)
+
+> *Yes, this library was also created by primitive cultures.*
+
+
+
 
 ## Installation
 
@@ -230,3 +245,16 @@ Q: The task of making sentinel is too simple, is there really a need for additio
 Q: Why is `InnerNoneType` not inherited from `NoneType`?
 
 A: The purpose of these classes is really quite similar. However, I felt that inheriting from `NoneType` could lead to breakdowns in the old code, which might expect that only one instance of `NoneType` is possible, and therefore uses the `isinstance` check as an analogue of the "is None" check. However, I cannot give figures on how often such constructions occur in existing code. Perhaps you should collect such statistics using the GitHub API.
+
+
+
+
+
+
+В фак: почему не использвать просто object()?? И проверки через is. У нас уже есть источник уникальных id — адреса в памяти компьютера. Проблемы: переиспользование id и их неуникальность. В цикле id (object()) == id(object())
+
+Как обеспечивается уникальность объектов InnerNoneType?
+
+Добавить тесты на возможность отнаследоваться и использовать наследника
+
+Почему константы не две? нан и андефайнд
