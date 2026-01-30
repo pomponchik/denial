@@ -26,7 +26,7 @@ class InnerNoneType:
         return hash(self.id)
 
     def __repr__(self) -> str:
-        if not self.id and self.auto:
+        if self.id == 0 and self.auto:
             return 'InnerNone'
         return descript_data_object(type(self).__name__, (self.id,), {'auto': self.auto}, filters={'auto': lambda x: x != True})
 

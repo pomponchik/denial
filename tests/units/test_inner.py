@@ -41,6 +41,10 @@ def test_new_instance_repr():
 
     assert repr(InnerNoneType(0)) == "InnerNoneType(0, auto=False)"
 
+    # Regression: falsy id (e.g. '') with auto=True must not get repr 'InnerNone' (issue 10)
+    assert repr(InnerNoneType('', auto=True)) != 'InnerNone'
+    assert 'InnerNoneType' in repr(InnerNoneType('', auto=True))
+
 
 def test_eq():
     new_instance = InnerNoneType()
