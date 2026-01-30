@@ -41,6 +41,10 @@ def test_new_instance_repr():
 
     assert repr(InnerNoneType(0)) == "InnerNoneType(0, auto=False)"
 
+    # Regression: falsy id (e.g. '') with auto=True must not get repr 'InnerNone' (issue 10)
+    assert repr(InnerNoneType('', auto=True)) != 'InnerNone'
+    assert 'InnerNoneType' in repr(InnerNoneType('', auto=True))
+
 
 def test_eq():
     new_instance = InnerNoneType()
@@ -108,7 +112,7 @@ def test_thread_safety():
         for _ in range(number_of_iterations):
             nones.append(InnerNoneType())
 
-    threads = [Thread(target=go_increment()) for _ in range(number_of_threads)]
+    threads = [Thread(target=go_increment) for _ in range(number_of_threads)]
 
     for thread in threads:
         thread.start()
