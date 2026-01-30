@@ -43,7 +43,7 @@ Programmers encounter uncertainty everywhere. We don't know in advance whether a
 
 Different programming languages and environments offer different models for representing uncertainty as objects. This is usually related to how a particular language has evolved and what forms of uncertainty its users most often encounter. Globally, I distinguish [three](https://numberwarrior.wordpress.com/2010/07/30/is-one-two-many-a-myth/) main models:
 
-- **One simple sentinel object**. This approach works great in most cases. In most real code, we don't need to distinguish between more than one type of uncertainty. This is the default model offered by Python. However, it breaks down when we need to distinguish between situations where we know we don't know something and situations where we don't know that we don't know something.
+- **One simple sentinel object**. This approach works great in most cases. In most real code, we don't need to distinguish between more than one type of uncertainty. This is the default model offered by Python. However, it breaks down when we need to [distinguish between](https://en.wikipedia.org/wiki/I_know_that_I_know_nothing) situations where *we know we don't know* something and situations where *we don't know that we don't know* something.
 
 - **Two sentinel objects**. This is more common in languages where, for example, a lot of user input is processed and where it is necessary to distinguish between different types of empty values.
 
