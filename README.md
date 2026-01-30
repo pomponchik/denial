@@ -45,15 +45,21 @@ Different programming languages and environments offer different models for repr
 
 - **One simple sentinel object**. This approach works great in most cases. In most real code, we don't need to distinguish between more than one type of uncertainty. This is the default model offered by Python. However, it breaks down when we need to [distinguish between](https://en.wikipedia.org/wiki/I_know_that_I_know_nothing) situations where *we know we don't know* something and situations where *we don't know that we don't know* something.
 
-- **Two sentinel objects**. This is more common in languages where, for example, a lot of user input is processed and where it is necessary to distinguish between different types of empty values.
+- **Two sentinel objects**. This is more common in languages where, for example, a lot of user input is processed and where it is necessary to distinguish between different types of empty values. If our task is to program Socrates, that will be quite sufficient.
 
 - **An infinite recursive hierarchy of sentinel objects**. From a philosophical point of view, uncertainty cannot be considered as a finite object, because that would already be a definite judgment about uncertainty. Therefore, we should consider uncertainty as consisting of an infinite number of layers. In practice, such structures can arise, for example, when we extract data from a large number of diverse sources but want to clearly distinguish at which stage of the pipeline the data was not found.
 
 ![One, Two, Many](https://imgs.xkcd.com/comics/one_two.png)
 
-> *Yes, this library was also created by primitive cultures.*
+> *Yes, this library was also created by primitive cultures*
 
+The first option is almost always sufficient. The `denial` library offers special primitives that cover the second and third options, providing complete coverage of uncertainty options for Python:
 
+- The first option is built into Python and does not require any third-party libraries: `None`.
+- The second option is represented by the [`InnerNone`]((#the-second-none)) constant from `denial`. It is practically the same as `None`, just a second `None`.
+- For the most complex cases, you can create your own sentinel objects using the [`InnerNoneType`](#your-own-none-objects) class from `denial`.
+
+As you can see, `denial` provides primitives only for rare cases of complex forms of uncertainty, which are practically never encountered in everyday programming. However, this is much more common among programmers who create their own libraries.
 
 
 ## Installation
