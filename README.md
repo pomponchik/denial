@@ -39,9 +39,9 @@ However, we can't all use sentinel objects from some built-in module if we don't
 
 ## The problem
 
-Programmers encounter uncertainty everywhere. We don't know in advance whether a user will enter a valid value into a form, or whether a given operation on two numbers is possible. To highlight uncertainty as a separate entity, programmers have come up with so-called sentinel objects. These can be very different: NULL, None, nil, undefined, NaN, and an infinite number of others.
+Programmers encounter uncertainty everywhere. We [don't know](https://en.wikipedia.org/wiki/Semipredicate_problem) in advance whether a user will enter a valid value into a form, or whether a given operation on two numbers is possible. To highlight uncertainty as a separate entity, programmers have come up with so-called sentinel objects. These can be very different: [NULL](https://en.wikipedia.org/wiki/Null_pointer), [`None`](https://docs.python.org/3/library/constants.html#None), [nil](https://ru.wikipedia.org/wiki/Nil), [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined), [NaN](https://en.wikipedia.org/wiki/NaN), and an infinite number of others.
 
-Different programming languages and environments offer different models for representing uncertainty as objects. This is usually related to how a particular language has evolved and what forms of uncertainty its users most often encounter. Globally, I distinguish [three](https://numberwarrior.wordpress.com/2010/07/30/is-one-two-many-a-myth/) main models:
+Different programming languages and environments offer [different models](#analogues) for representing uncertainty as objects. This is usually related to how a particular language has evolved and what forms of uncertainty its users most often encounter. Globally, I distinguish [three](https://numberwarrior.wordpress.com/2010/07/30/is-one-two-many-a-myth/) main models:
 
 - **One simple sentinel object**. This approach works great in most cases. In most real code, we don't need to distinguish between more than one type of uncertainty. This is the default model offered by Python. However, it breaks down when we need to [distinguish between](https://en.wikipedia.org/wiki/I_know_that_I_know_nothing) situations where *we know we don't know* something and situations where *we don't know that we don't know* something.
 
@@ -55,8 +55,8 @@ Different programming languages and environments offer different models for repr
 
 The first option is almost always sufficient. The `denial` library offers special primitives that cover the second and third options, providing complete coverage of uncertainty options for Python:
 
-- The first option is built into Python and does not require any third-party libraries: `None`.
-- The second option is represented by the [`InnerNone`]((#the-second-none)) constant from `denial`. It is practically the same as `None`, just a second `None`.
+- The first option is built into Python and does not require any third-party libraries: [`None`](https://docs.python.org/3/library/constants.html#None).
+- The second option is represented by the [`InnerNone`](#the-second-none) constant from `denial`. It is practically the same as `None`, just a second `None`.
 - For the most complex cases, you can create your own sentinel objects using the [`InnerNoneType`](#your-own-none-objects) class from `denial`.
 
 As you can see, `denial` provides primitives only for rare cases of complex forms of uncertainty, which are practically never encountered in everyday programming. However, this is much more common among programmers who create their own libraries.
