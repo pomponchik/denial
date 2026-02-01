@@ -150,6 +150,26 @@ print(InnerNoneType(123) == 123)
 
 > ⚠️ For most situations, I do not recommend passing arguments to the class constructor. This can lead to situations where two identifiers from different parts of your code accidentally end up being the same, which can result in errors that are difficult to catch. If you do not pass arguments, the uniqueness of each `InnerNoneType` object created is guaranteed.
 
+All `InnerNoneType` objects have beautiful string mappings:
+
+```python
+print(InnerNoneType())
+#> InnerNoneType(1)
+print(InnerNoneType(123))
+#> InnerNoneType(123, auto=False)
+```
+
+You can also add a documentation string to the object, it will also be displayed:
+
+```python
+print(InnerNoneType(doc='My doc string!'))
+#> InnerNoneType(1, doc='My doc string!')
+print(InnerNoneType(123, doc='My doc string!'))
+#> InnerNoneType(123, doc='My doc string!', auto=False)
+```
+
+Documentation strings are not taken into account when comparing `InnerNoneType` objects.
+
 
 ## Type hinting
 
